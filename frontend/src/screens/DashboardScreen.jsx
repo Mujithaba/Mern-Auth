@@ -9,8 +9,8 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form, InputGroup, Modal, FormControl, Container, Row, Col } from 'react-bootstrap';
-
-
+import { FaEdit } from 'react-icons/fa';
+import { MdDelete } from 'react-icons/md';
 
 
 const DashboardScreen = () => {
@@ -223,7 +223,48 @@ const DashboardScreen = () => {
                 </button>
             </div>
 
-            <table className="table table-striped">
+{/* User details */}
+            <div className="row">
+    {findedUsers.map((user) => (
+        <div className="col-md-6 mb-4" key={user.id}>
+            <div className="card shadow">
+                <div className="card-body d-flex align-items-center">
+
+                    <div>
+                        
+                        <h5 className="card-title">
+                        <img
+                                    src={`http://localhost:8000/images/${user.profilePhoto}`}
+                                    alt=""
+                                    className="rounded-circle me-3"
+                                    style={{ width: '50px', height: '50px' }}
+                                />
+                            {user.name}</h5>
+                        <p className="card-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {user.email}</p>
+                    </div>
+                    <div className="ms-auto">
+                        <button
+                            type="button"
+                            className="btn btn-hoVor me-2"
+                            onClick={() => handleDeleteUser(user._id)}
+                        >
+                                 <MdDelete /> 
+                        </button>
+                        <button
+                            type="button"
+                            className="btn"
+                            onClick={() => handleEditUser(user._id)}
+                        >
+                             <FaEdit /> 
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    ))}
+</div>
+
+            {/* <table className="table table-striped">
                 <thead>
                     <tr >
                         <th >Name</th>
@@ -263,7 +304,7 @@ const DashboardScreen = () => {
                         </tr>
                     ))}
                 </tbody>
-            </table>
+            </table> */}
 
             {/* Modal for confirming user deletion */}
             <Modal show={showDeleteModal} onHide={handleCloseModal}>
